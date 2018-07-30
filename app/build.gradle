@@ -1,0 +1,96 @@
+apply plugin: 'com.android.application'
+
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-kapt'
+apply plugin: 'kotlin-android-extensions'
+
+android {
+    compileSdkVersion 28
+    defaultConfig {
+        applicationId "co.starec.tframework"
+        minSdkVersion 21
+        targetSdkVersion 28
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+
+    // Specifies a flavor dimension.
+    flavorDimensions "mode"
+
+    productFlavors {
+        beta {
+            dimension "mode"
+            buildConfigField "String", "BASE_URL", '"https://runther.com/api/"'
+            buildConfigField "String", "HOST_NAME", '"runther.com"'
+            buildConfigField "String", "HOST_SHARE", '"https://runther.com/"'
+            buildConfigField "String", "MQTT_SERVER", '"ssl://139.162.40.178:8883"'
+            buildConfigField "String", "MQTT_NAME", '"runther"'
+            buildConfigField "String", "MQTT_PASS", '"St@rec"'
+        }
+
+        production {
+            dimension "mode"
+            buildConfigField "String", "BASE_URL", '"https://runther.com/api/"'
+            buildConfigField "String", "HOST_NAME", '"runther.com"'
+            buildConfigField "String", "HOST_SHARE", '"https://runther.com/"'
+            buildConfigField "String", "MQTT_SERVER", '"ssl://139.162.40.178:8883"'
+            buildConfigField "String", "MQTT_NAME", '"runther"'
+            buildConfigField "String", "MQTT_PASS", '"St@rec"'
+        }
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+ext {
+    supportLibVersion = '28.0.0-alpha1'
+    butterknifeLibVersion = '8.8.1'
+    daggerLibVersion = '2.7'
+    retrofitLibVersion = '2.1.0'
+    okhttpLoggingInterceptorLibVersion = '3.3.1'
+    calligraphyLibVersion = '2.3.0'
+    dbflow_version = '4.0.4'
+    kotterknifeLibVersion = '0.1.0-SNAPSHOT'
+    circleImageVersion = '2.1.0'
+    glide_version = '4.0.0'
+    anko_version = '0.10.1'
+    mpchart_version = 'v3.0.2'
+    facebookVersion='[4,5)'
+    mqttVersion = '1.12'
+    opensslVersion = '1.45'
+    shadowVersion='0.0.3'
+    crashlyticVersion='2.7.1@aar'
+    firebaseVersion='11.6.0'
+    lottieVersion='2.2.0'
+    mapVersion='15.0.1'
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation"org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    implementation "com.android.support:appcompat-v7:$supportLibVersion"
+    implementation "com.android.support:design:$supportLibVersion"
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'com.android.support.test:runner:1.0.2'
+    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+
+    //Dagger 2
+    implementation "com.google.dagger:dagger:${daggerLibVersion}"
+    kapt "com.google.dagger:dagger-compiler:${daggerLibVersion}"
+
+    implementation "de.hdodenhof:circleimageview:${circleImageVersion}"
+
+    // HTTP
+    implementation "com.squareup.retrofit2:retrofit:${retrofitLibVersion}"
+    implementation "com.squareup.retrofit2:converter-gson:${retrofitLibVersion}"
+    implementation "com.squareup.okhttp3:logging-interceptor:${okhttpLoggingInterceptorLibVersion}"
+
+    //Font all app
+    implementation "uk.co.chrisjenx:calligraphy:${calligraphyLibVersion}"
+}
